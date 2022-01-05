@@ -10,21 +10,30 @@ export default function Filter() {
   const dispatch = useDispatch();
 
   return (
-    <label className={s.label}>
-      Find contacts by name
-      <div className={s.wrapper}>
-        <DebounceInput
-          debounceTimeout={500}
-          className={s.input}
-          type="text"
-          value={value}
-          onChange={e => dispatch(actions.filter(e.target.value))}
-        />
-        <span className={s.focusBorder}>
-          <i />
-        </span>
-      </div>
-    </label>
+    <div className={s.filter}>
+      <label className={s.label}>
+        Filter by name
+        <div className={s.wrapper}>
+          <DebounceInput
+            debounceTimeout={500}
+            className={s.input}
+            type="text"
+            value={value}
+            onChange={e => dispatch(actions.filter(e.target.value))}
+          />
+          <span className={s.focusBorder}>
+            <i />
+          </span>
+        </div>
+      </label>
+      <button
+        className={s.button}
+        type="button"
+        onClick={() => dispatch(actions.filter(''))}
+      >
+        <span className={s.buttonName}>clear</span>
+      </button>
+    </div>
   );
 }
 
