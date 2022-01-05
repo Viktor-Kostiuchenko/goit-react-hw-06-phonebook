@@ -51,7 +51,7 @@ export default function ContactList() {
                   draggableId={id}
                   index={index}
                   key={id}
-                  isDragDisabled={filter === '' ? false : true}
+                  isDragDisabled={filter !== ''}
                 >
                   {(provided, snapshot) => {
                     const style = {

@@ -30,7 +30,7 @@ export default function Filter() {
         className={s.button}
         type="button"
         onClick={() => dispatch(actions.filter(''))}
-        disabled={value === '' ? true : false}
+        disabled={value === ''}
       >
         <span className={s.buttonName}>clear</span>
       </button>

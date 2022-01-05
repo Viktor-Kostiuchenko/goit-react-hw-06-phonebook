@@ -133,6 +133,11 @@
   width: 100%;
 }
 
+.button[disabled] {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .errorMsg {
   position: absolute;
   top: 100%;

@@ -30,6 +30,7 @@ export default function ContactForm() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm({ resolver: yupResolver(schema) });
 
   const dispatch = useDispatch();
@@ -39,6 +40,10 @@ export default function ContactForm() {
     dispatch(actions.addContact(data));
     reset();
   };
+
+  const emtyStr = watch('name') === '' && watch('number') === '';
+  const undefinedSrt =
+    watch('name') === undefined && watch('number') === undefined;
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)} autoComplete="off">
@@ -66,7 +71,11 @@ export default function ContactForm() {
         </label>
         <p className={s.errorMsg}>{errors.number?.message}</p>
       </div>
-      <button className={s.button} type="submit">
+      <button
+        className={s.button}
+        type="submit"
+        disabled={emtyStr || undefinedSrt}
+      >
         <span className={s.buttonName}>Add contact</span>
       </button>
     </form>
