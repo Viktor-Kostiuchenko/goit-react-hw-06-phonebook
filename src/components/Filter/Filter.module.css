@@ -13,6 +13,8 @@
 
 .wrapper {
   position: relative;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .input {
@@ -21,9 +23,9 @@
   background-color: transparent;
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 441px) {
   .input {
-    width: 200px;
+    width: 190px;
   }
 }
 
@@ -87,7 +89,7 @@
 }
 
 .button {
-  width: 80px;
+  width: 85px;
   height: 28px;
   border: 1px solid #000;
   font-weight: 700;

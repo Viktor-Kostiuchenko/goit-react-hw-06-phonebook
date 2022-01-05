@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { DebounceInput } from 'react-debounce-input';
 import { getFilter } from '../../redux/contacts/contacts-selectors';
 import actions from '../../redux/contacts/contacts-actions';
@@ -37,7 +37,7 @@ export default function Filter() {
   );
 }
 
-// Filter.propTypes = {
-//   value: PropTypes.string.isRequired,
-//   onChange: PropTypes.func.isRequired,
-// };
+Filter.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};

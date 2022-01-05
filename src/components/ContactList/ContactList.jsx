@@ -1,14 +1,18 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ContactItem from './ContactItem';
-import { showFiltered } from '../../redux/contacts/contacts-selectors';
+import {
+  showFiltered,
+  getContacts,
+} from '../../redux/contacts/contacts-selectors';
 import actions from '../../redux/contacts/contacts-actions';
 import s from './ContactList.module.css';
 
 export default function ContactList() {
-  const contacts = useSelector(showFiltered);
+  const contacts = useSelector(getContacts);
+  const filteredContacts = useSelector(showFiltered);
   const dispatch = useDispatch();
   const onDeleteContact = id => dispatch(actions.deleteContact(id));
 
@@ -34,13 +38,13 @@ export default function ContactList() {
       <DragDropContext onDragEnd={onDragEnd}>
         <p className={s.total}>
           Total contacts:
-          <span className={s.amount}> {contacts.length}</span>
+          <span className={s.amount}> {filteredContacts.length}</span>
         </p>
 
         <Droppable droppableId="droppable">
           {provided => (
             <ul ref={provided.innerRef} {...provided.droppableProps}>
-              {contacts.map(({ id, name, number }, index) => (
+              {filteredContacts.map(({ id, name, number }, index) => (
                 <Draggable draggableId={id} index={index} key={id}>
                   {(provided, snapshot) => {
                     const style = {
@@ -78,11 +82,11 @@ export default function ContactList() {
   );
 }
 
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     }),
-//   ),
-//   onDeleteContact: PropTypes.func.isRequired,
-// };
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  ),
+  onDeleteContact: PropTypes.func,
+};

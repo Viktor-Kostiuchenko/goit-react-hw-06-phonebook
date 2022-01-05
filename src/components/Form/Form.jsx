@@ -38,7 +38,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
+    <form onSubmit={handleSubmit(onSubmitHandler)} autoComplete="off">
       <div className={s.inputBox}>
         <input
           className={s.input}
