@@ -3,23 +3,34 @@ import PropTypes from 'prop-types';
 import Icons from '../../../images/icons/sprite.svg';
 import s from './ContactItem.module.css';
 
-export default function ContactItem({ id, name, number, onDeleteContact }) {
+export default function ContactItem({
+  id,
+  name,
+  number,
+  onDeleteContact,
+  index,
+}) {
   return (
     <>
-      <ul className={s.info}>
-        <li className={s.item}>
-          <svg className={s.icon} width="18" height="18">
-            <use xlinkHref={`${Icons}#book`}></use>
-          </svg>
-          <p>{name}</p>
-        </li>
-        <li className={s.item}>
-          <svg className={`${s.icon} ${s.animation}`} width="18" height="18">
-            <use xlinkHref={`${Icons}#mobile`}></use>
-          </svg>
-          <p>{number}</p>
-        </li>
-      </ul>
+      <div className={s.infoWrapper}>
+        <svg className={s.icon} width="25" height="25">
+          <use xlinkHref={`${Icons}#drag`}></use>
+        </svg>
+        <ul className={s.info}>
+          <li className={s.item}>
+            <svg className={s.icon} width="18" height="18">
+              <use xlinkHref={`${Icons}#book`}></use>
+            </svg>
+            <p>{name}</p>
+          </li>
+          <li className={s.item}>
+            <svg className={`${s.icon} ${s.animation}`} width="18" height="18">
+              <use xlinkHref={`${Icons}#mobile`}></use>
+            </svg>
+            <p>{number}</p>
+          </li>
+        </ul>
+      </div>
       <button
         type="button"
         onClick={() => onDeleteContact(id)}

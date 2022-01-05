@@ -1,5 +1,10 @@
+.infoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .info {
-  width: 200px;
   margin-right: 10px;
   cursor: pointer;
   transition: color 300ms ease-in-out;

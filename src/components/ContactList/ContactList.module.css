@@ -24,10 +24,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 5px;
 }
 
 .item:not(:last-child) {
   margin-bottom: 10px;
-  padding-bottom: 10px;
   border-bottom: 1px solid #000;
 }

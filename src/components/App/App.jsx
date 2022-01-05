@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { nanoid } from 'nanoid';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Section from '../Section';
 import ContactForm from '../Form';
 import ContactList from '../ContactList';
@@ -52,6 +53,25 @@ export default function App() {
     });
   }, [contacts, filter]);
 
+  const onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const items = Array.from(contacts);
+    const [reorderedItem] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, reorderedItem);
+
+    setContacts(items);
+  };
+
   return (
     <div className={s.container}>
       <Logo />
@@ -61,7 +81,12 @@ export default function App() {
 
       <Section title="Contacts">
         <Filter value={filter} onChange={filterByName} />
-        <ContactList contacts={showFiltered} onDeleteContact={deleteContact} />
+        <DragDropContext onDragEnd={onDragEnd}>
+          <ContactList
+            contacts={showFiltered}
+            onDeleteContact={deleteContact}
+          />
+        </DragDropContext>
       </Section>
     </div>
   );
