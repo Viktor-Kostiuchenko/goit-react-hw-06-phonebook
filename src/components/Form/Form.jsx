@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import InputMask from 'react-input-mask';
 import actions from '../../redux/contacts/contacts-actions';
 import s from './Form.module.css';
 
@@ -16,8 +15,8 @@ const schema = Yup.object().shape({
     )
     .required(''),
   number: Yup.string()
-    .min(19, 'Too Short! Ex: +38 (0XX) XXX-XX-XX')
-    .max(19, 'Too Long!')
+    .min(3, 'Too Short!')
+    .max(30, 'Too Long!')
     .matches(
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
       'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
@@ -36,6 +35,7 @@ export default function ContactForm() {
   const dispatch = useDispatch();
 
   const onSubmitHandler = data => {
+    console.log(data);
     dispatch(actions.addContact(data));
     reset();
   };
@@ -55,9 +55,7 @@ export default function ContactForm() {
         <p className={s.errorMsg}>{errors.name?.message}</p>
       </div>
       <div className={s.inputBox}>
-        <InputMask
-          mask="+38 (099) 999-99-99"
-          maskChar={null}
+        <input
           className={s.input}
           type="tel"
           {...register('number')}
