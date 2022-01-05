@@ -6,6 +6,7 @@ import ContactItem from './ContactItem';
 import {
   showFiltered,
   getContacts,
+  getFilter,
 } from '../../redux/contacts/contacts-selectors';
 import actions from '../../redux/contacts/contacts-actions';
 import s from './ContactList.module.css';
@@ -13,6 +14,7 @@ import s from './ContactList.module.css';
 export default function ContactList() {
   const contacts = useSelector(getContacts);
   const filteredContacts = useSelector(showFiltered);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
   const onDeleteContact = id => dispatch(actions.deleteContact(id));
 
@@ -45,7 +47,12 @@ export default function ContactList() {
           {provided => (
             <ul ref={provided.innerRef} {...provided.droppableProps}>
               {filteredContacts.map(({ id, name, number }, index) => (
-                <Draggable draggableId={id} index={index} key={id}>
+                <Draggable
+                  draggableId={id}
+                  index={index}
+                  key={id}
+                  isDragDisabled={filter === '' ? false : true}
+                >
                   {(provided, snapshot) => {
                     const style = {
                       backgroundColor: snapshot.isDragging
