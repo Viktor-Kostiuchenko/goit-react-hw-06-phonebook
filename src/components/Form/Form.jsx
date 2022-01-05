@@ -1,7 +1,9 @@
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import s from './Form.module.css';
+import actions from '../../redux/contacts/contacts-actions';
 
 const schema = Yup.object().shape({
   name: Yup.string()
@@ -20,17 +22,21 @@ const schema = Yup.object().shape({
     .required(''),
 });
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
+
+  const dispatch = useDispatch();
+
   const onSubmitHandler = data => {
-    onSubmit(data);
+    dispatch(actions.addContact(data));
     reset();
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
       <div className={s.inputBox}>

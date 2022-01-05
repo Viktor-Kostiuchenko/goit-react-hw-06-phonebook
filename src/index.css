@@ -24,7 +24,7 @@ body {
 }
 @media screen and (min-width: 500px) {
   body {
-    background: url('/src/images/phone-tablet(2).jpg'),
+    background: url('/src/images/phone-tablet.jpg'),
       linear-gradient(
         to right,
         #eaeaec 0%,
@@ -43,7 +43,7 @@ body {
 
 @media screen and (min-width: 875px) {
   body {
-    background: url('/src/images/phone-tablet(2).jpg'),
+    background: url('/src/images/phone-tablet.jpg'),
       linear-gradient(
         to right,
         #eaeaec 0%,
@@ -62,7 +62,7 @@ body {
 
 @media screen and (min-width: 1170px) {
   body {
-    background: url('/src/images/phone-desctop.jpg'),
+    background: url('/src/images/phone-desktop.jpg'),
       linear-gradient(
         to right,
         #eaeaec 0%,
