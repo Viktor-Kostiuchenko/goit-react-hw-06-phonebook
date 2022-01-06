@@ -18,13 +18,30 @@ const items = createReducer([], {
     }
     return [...state, payload];
   },
-  [actions.deleteContact]: (state, { payload }) =>
-    state.filter(({ id }) => id !== payload),
-  [actions.ordered]: (state, { payload }) => [...payload],
+
+  [actions.deleteContact]: (state, { payload }) => {
+    return state.filter(({ id }) => id !== payload);
+  },
+
+  [actions.changeContactName]: (state, { payload }) => {
+    return state.map(contact =>
+      contact.id === payload.id ? { ...contact, name: payload.value } : contact,
+    );
+  },
+
+  [actions.changeContactNumber]: (state, { payload }) => {
+    return state.map(contact =>
+      contact.id === payload.id
+        ? { ...contact, number: payload.value }
+        : contact,
+    );
+  },
+
+  [actions.ordered]: (_, { payload }) => [...payload],
 });
 
 const filter = createReducer('', {
-  [actions.filter]: (state, { payload }) => payload,
+  [actions.filter]: (_, { payload }) => payload,
 });
 
 export default combineReducers({

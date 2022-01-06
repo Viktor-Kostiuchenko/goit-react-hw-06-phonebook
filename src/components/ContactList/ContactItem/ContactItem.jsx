@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import EdiText from 'react-editext';
+import actions from '../../../redux/contacts/contacts-actions';
 import Icons from '../../../images/icons/sprite.svg';
 import s from './ContactItem.module.css';
 
-export default function ContactItem({
-  id,
-  name,
-  number,
-  onDeleteContact,
-  index,
-}) {
+export default function ContactItem({ id, name, number, onDeleteContact }) {
+  const [nameValue, setNameValue] = useState(name);
+  const [numberValue, setNumberValue] = useState(number);
+  const dispatch = useDispatch();
+
+  const handleSaveName = id => value => {
+    setNameValue(value);
+    dispatch(actions.changeContactName({ id, value }));
+  };
+  const handleSaveNumber = id => value => {
+    setNumberValue(value);
+    dispatch(actions.changeContactNumber({ id, value }));
+  };
   return (
     <>
       <div className={s.infoWrapper}>
@@ -21,13 +30,25 @@ export default function ContactItem({
             <svg className={s.icon} width="18" height="18">
               <use xlinkHref={`${Icons}#book`}></use>
             </svg>
-            <p>{name}</p>
+            <EdiText
+              value={nameValue}
+              validation={value => value.length > 2 && value.length < 20}
+              validationMessage={'*3-20 symbols'}
+              type="text"
+              onSave={handleSaveName(id)}
+            />
           </li>
           <li className={s.item}>
             <svg className={`${s.icon} ${s.animation}`} width="18" height="18">
               <use xlinkHref={`${Icons}#mobile`}></use>
             </svg>
-            <p>{number}</p>
+            <EdiText
+              value={numberValue}
+              validation={value => value.length > 2 && value.length < 20}
+              validationMessage={'*3-20 symbols'}
+              type="text"
+              onSave={handleSaveNumber(id)}
+            />
           </li>
         </ul>
       </div>
@@ -36,10 +57,10 @@ export default function ContactItem({
         onClick={() => onDeleteContact(id)}
         className={s.button}
       >
-        <span className={s.topKey}></span>
+        <span className={s.topKey} />
         <span className={s.buttonText}>delete</span>
-        <span className={s.firstKey}></span>
-        <span className={s.secondKey}></span>
+        <span className={s.firstKey} />
+        <span className={s.secondKey} />
       </button>
     </>
   );

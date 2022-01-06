@@ -36,56 +36,52 @@ export default function ContactList() {
   };
 
   return (
-    <>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <p className={s.total}>
-          Total contacts:
-          <span className={s.amount}> {filteredContacts.length}</span>
-        </p>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <p className={s.total}>
+        Total contacts:
+        <span className={s.amount}> {filteredContacts.length}</span>
+      </p>
 
-        <Droppable droppableId="droppable">
-          {provided => (
-            <ul ref={provided.innerRef} {...provided.droppableProps}>
-              {filteredContacts.map(({ id, name, number }, index) => (
-                <Draggable
-                  draggableId={id}
-                  index={index}
-                  key={id}
-                  isDragDisabled={filter !== ''}
-                >
-                  {(provided, snapshot) => {
-                    const style = {
-                      backgroundColor: snapshot.isDragging
-                        ? '#ff524b'
-                        : 'unset',
-                      ...provided.draggableProps.style,
-                    };
-                    return (
-                      <li
-                        className={s.item}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
-                        style={style}
-                      >
-                        <ContactItem
-                          index={index}
-                          id={id}
-                          name={name}
-                          number={number}
-                          onDeleteContact={() => onDeleteContact(id)}
-                        />
-                      </li>
-                    );
-                  }}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </>
+      <Droppable droppableId="droppable">
+        {provided => (
+          <ul ref={provided.innerRef} {...provided.droppableProps}>
+            {filteredContacts.map(({ id, name, number }, index) => (
+              <Draggable
+                draggableId={id}
+                index={index}
+                key={id}
+                isDragDisabled={filter !== ''}
+              >
+                {(provided, snapshot) => {
+                  const style = {
+                    backgroundColor: snapshot.isDragging ? '#ff524b' : 'unset',
+                    ...provided.draggableProps.style,
+                  };
+                  return (
+                    <li
+                      className={s.item}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                      style={style}
+                    >
+                      <ContactItem
+                        index={index}
+                        id={id}
+                        name={name}
+                        number={number}
+                        onDeleteContact={() => onDeleteContact(id)}
+                      />
+                    </li>
+                  );
+                }}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }
 
